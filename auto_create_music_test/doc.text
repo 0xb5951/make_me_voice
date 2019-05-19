@@ -1,0 +1,70 @@
+Yahoo!とのミーティングに向けて、音楽を自動生成する機能を開発する。
+Pythonのライブコーディングツール『FoxDot』を用いて、音楽を自動的に生成させる。
+
+## まずはコードからFoxDotを動かす方法を調べる。
+FoxDotを起動させたときに表示されるタブに`Tutorials`というタブがある。
+ここを選択すると、書き込まれているファイルが読み込まれる。
+
+このファイルを全選択して、実行してやれば、自動実行はできる。
+ただ、あまりに違う中身を実行してしまうと途切れてしまうので、少し工夫が必要。
+
+### 実験_1
+FoxDotの中にあるtutorialsフォルダにファイルを追加すれば、そのファイルが読み込まれるのかをチェックする。
+
+Tutorialsタブに追加された。ただ、FoxDotを再起動しないとタブに表示されなかったので、どうするか。
+
+### 実験_2
+Tutorialsタブに追加されたファイルが更新された場合、tutorialタブから再読み込みしたときに
+その更新が反映されているか。
+
+FoxDotを再起動しなくても、ファイルが再実行された。
+なので、音楽の自動生成時にファイルを再読み込みさせればいい。
+
+**思考中**
+FoxDotの前提ルール
+変数は2文字の組み合わせを用いて作成し、その数には限りがない(CPUリソース)
+
+
+ここで取れる選択肢
+- 生成したタイミングで、GUIを操作してtutorialタブから再読み込み、さらに全選択して音声を実行
+- ファイルを読みだしている部分を解読して、各変数ごとにずらして譜面を自動生成
+
+拡張性は下の方がある。
+
+各楽器ごとに、いい感じの音楽コードを保存しておき、そこから30秒おきにランダムで取得して、
+その行のコードを書き換えてやり、GUI操作して、tutorialタブを選択して、更新されているファイルを選択、
+さらにそこから全体を選択して再実行。
+
+### 調査_1
+GUI操作する方法
+1. PyAutoGUI
+http://whitecat-student.hatenablog.com/entry/2016/06/27/010812
+https://qiita.com/hirohiro77/items/78e26a59c2e45a0fe4e3
+https://www.lisz-works.com/entry/pyautogui-mouse
+
+2.AutoPy
+http://whitecat-student.hatenablog.com/entry/2016/10/24/125000
+
+とりあえず、PyautoGUIを使って処理を自動化してみる。
+
+### 導入_1
+pyAutpGUIを導入する。
+
+インタプリンタで動作を試す。
+```
+import pyautogui
+import sys
+import time
+
+# 画面サイズの取得
+screen_x,screen_y = pyautogui.size()
+print (u"printについてる[u]はunicodeにするのuでマルチバイト表記が化けるときにつけるよ")
+print (u"画面サイズ [" + str(screen_x) + "]/[" + str(screen_y) + "]")
+
+# 画面中央にカーソルを動かす
+center_x = screen_x / 2
+center_y = screen_y / 2
+print (u"画面中央 [" + str(center_x) + "]/[" + str(center_y) + "]")
+pyautogui.moveTo(center_x, center_y, duration=2)
+```
+### スクリプトファイルから実行
