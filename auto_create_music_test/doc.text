@@ -68,3 +68,71 @@ print (u"画面中央 [" + str(center_x) + "]/[" + str(center_y) + "]")
 pyautogui.moveTo(center_x, center_y, duration=2)
 ```
 ### スクリプトファイルから実行
+```
+##PyAutoGUIのモジュール
+import pyautogui
+
+##プロセスを制御するためにOS周りのモジュール
+import sys
+import time
+
+
+# 画面サイズの取得
+screen_x, screen_y = pyautogui.size()
+
+
+if __name__ == "__main__":
+    time.sleep(5)
+
+    # 現在のマウス位置の取得
+    tmp_cur_x, tmp_cur_y = pyautogui.position()  # 現在のマウスのxとy座標を返す
+    print(tmp_cur_x, tmp_cur_y)
+
+
+    # もし画面内カーソルにあればTrueを返す
+    cursor_flag = pyautogui.onScreen(tmp_cur_x, tmp_cur_y)
+    print(cursor_flag)
+
+    # 現在のマウスカーソルの座標から(xOffset,yOffset)だけtime秒で移動する．
+    pyautogui.moveRel(2, 2, 2)
+
+    # 現在のマウス位置の取得
+    tmp_cur_x, tmp_cur_y = pyautogui.position()  # 現在のマウスのxとy座標を返す
+    print(tmp_cur_x, tmp_cur_y)
+
+    # その場所でマウスを左クリックする
+    pyautogui.click(tmp_cur_x, tmp_cur_y)
+```
+
+これが動作することは確認できた。
+
+ここから目的とする動作のワークフローを考える。
+1. 最初にFoxDotとsupercoliderを起動しておく(手動)
+2. FoxDotを特定の場所におく(手動)
+3. カーソルをtutorialタブに置く(手動)
+4. 音楽更新スクリプトでpythonファイルを更新
+5. Tutorialsタブをクリックして、開く
+6. マウスを動かし、16番目のファイルをクリック
+7. FoxDotのエディタを全選択
+8. ctrl+Enterで実行
+9. Tutorialsタブの位置まで戻す
+9. 30秒待機
+10. 無限ループ
+
+### 実装_1
+まずは3まで用意する。
+
+FoxDotは全画面表示にしておく。
+とりあえず、50px下に動かしてみる。
+全然足りない。
+
+300pxにする。
+11番目だった。
+
+450とか。
+420でベストフィット。
+
+コマンドラインから音楽を自動生成することができた。
+音楽更新スクリプトを作成する。
+
+## 音楽を自動で生成させる。
