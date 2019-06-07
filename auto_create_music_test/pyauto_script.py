@@ -32,13 +32,13 @@ if __name__ == "__main__":
         source_data = json.load(f)  # JSON形式で読み込む
 
     while(1):
-        time.sleep(30)
+        time.sleep(10)
 
         # 各音源に対して更新ループを回す
         for index, source in enumerate(mf_lines, start=0):
             print(index, source)
             # 音源を更新するときの処理
-            if random.random() > 0.7:
+            if random.random() > 0.4:
                 # 楽器の変数を取得
                 ms_vr = source.split('>>')[0]
                 print(ms_vr)
