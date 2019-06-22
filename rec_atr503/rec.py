@@ -8,9 +8,11 @@ iDeviceIndex = 0  # 録音デバイスのインデックス番号
 #基本情報の設定
 FORMAT = pyaudio.paInt16  # 音声のフォーマット
 CHANNELS = 1  # モノラル
-RATE = 44100  # サンプルレート
+RATE = 48000  # サンプルレート
 CHUNK = 2**11  # データ点数
-audio = pyaudio.PyAudio()  # pyaudio.PyAudio()
+
+
+audio = pyaudio.PyAudio()
 
 stream = audio.open(format=FORMAT, channels=CHANNELS,
                     rate=RATE, input=True,
