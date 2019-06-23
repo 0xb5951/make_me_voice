@@ -1,8 +1,8 @@
 import wave  # wavファイルを扱うためのライブラリ
 import pyaudio  # 録音機能を使うためのライブラリ
 
-RECORD_SECONDS = 7 # 録音する時間の長さ（秒）
-WAVE_OUTPUT_FILENAME = "g50.wav"  # 音声を保存するファイル名
+RECORD_SECONDS = 10 # 録音する時間の長さ（秒）
+WAVE_OUTPUT_FILENAME = "h50.wav"  # 音声を保存するファイル名
 iDeviceIndex = 0  # 録音デバイスのインデックス番号
 
 #基本情報の設定
